@@ -1,0 +1,43 @@
+test_parsing =
+41
+41
+-555555.555555555555555
+69
+
+test_fail =
+invalid command
+
+test =
+Error modulo by 0
+
+test1 =
+42
+42.42
+3341.25
+
+test2 =
+97
+41
+
+97
+-16
+14
+89,66
+41
+65
+
+test4 =
+error no exit
+
+test5 =
+5555,5
+5555
+10000
+1
+0
+0
+24
+25
+
+test6 =
+assert fail

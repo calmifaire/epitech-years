@@ -1,0 +1,5 @@
+serverJ2T3
+clientJ2T3
+*.o
+vgcore*
+.vscode

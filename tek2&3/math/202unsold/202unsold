@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 202
+## File description:
+## 202
+##
+
+import sys
+from math import *
+
+def lawb(a,b,x,y):
+        u = (a-x) * (b-y)
+        d = (5 * a - 150)*(5 * b - 150)
+        e = u / d
+        return (e)
+
+def law(a, x):
+        l = (a - x)/(5 * a - 150)
+        return (l)
+
+        
+if __name__ == "__main__":
+        arg = len(sys.argv) - 1
+        if (arg != 2):
+                print ("USAGE\n    ./202unsold a b\n\nDESCRIPTION\n    a       constant computed from past results\n    b       constant computed from past results")
+                exit (84)
+        if (len(sys.argv[1]) < 2 or len(sys.argv[2]) < 2):
+                print ("invalide argument")
+                exit (84)
+        if (len(sys.argv[1]) == 2):
+                if (sys.argv[1][0] < '5' or sys.argv[1][0] > '9' or sys.argv[1][1] < '0' or sys.argv[1][1] > '9'):
+                        print ("invalide first argument")
+                        exit (84)
+        if (len(sys.argv[2]) == 2):
+                if (sys.argv[2][0] < '5' or sys.argv[2][0] > '9' or sys.argv[2][1] < '0' or sys.argv[2][1] > '9'):
+                        print ("invalide second argument")
+                        exit (84)
+        if (len(sys.argv[1]) > 2):
+            for x in range(0, len(sys.argv[1])):
+                        if (sys.argv[1][x] < '0' or sys.argv[1][x] > '9'):
+                            print ("invalide first argument")
+                            exit (84)
+        if (len(sys.argv[2]) > 2):
+            for x in range(0, len(sys.argv[2])):
+                        if (sys.argv[2][x] < '0' or sys.argv[2][x] > '9'):
+                            print ("invalide second argument")
+                            exit (84)
+        print ("------------------------------------------------------------------------------------------\n        X=10     X=20     X=30     X=40     X=50     Y law")
+        a = int(sys.argv[1])
+        b = int(sys.argv[2])
+        t = lawb(a,b,10,10)
+        y = lawb(a,b,20,10)
+        u = lawb(a,b,30,10)
+        i = lawb(a,b,40,10)
+        o = lawb(a,b,50,10)
+        z1 = t
+        z2 = y
+        z3 = u
+        z4 = i
+        z5 = o
+        print ("Y=10    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f" % (t,y,u,i,o,(t+y+u+i+o)))
+        t = lawb(a,b,10,20)
+        y = lawb(a,b,20,20)
+        u = lawb(a,b,30,20)
+        i = lawb(a,b,40,20)
+        o = lawb(a,b,50,20)
+        z2 = z2 + t
+        z3 = z3 + y
+        z4 = z4 + u
+        z5 = z5 + i
+        z6 = o
+        print ("Y=20    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f" % (t,y,u,i,o,(t+y+u+i+o)))
+        t = lawb(a,b,10,30)
+        y = lawb(a,b,20,30)
+        u = lawb(a,b,30,30)
+        i = lawb(a,b,40,30)
+        o = lawb(a,b,50,30)
+        z3 = z3 + t
+        z4 = z4 + y
+        z5 = z5 + u
+        z6 = z6 + i
+        z7 = o
+        print ("Y=30    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f" % (t,y,u,i,o,(t+y+u+i+o)))
+        t = lawb(a,b,10,40)
+        y = lawb(a,b,20,40)
+        u = lawb(a,b,30,40)
+        i = lawb(a,b,40,40)
+        o = lawb(a,b,50,40)
+        z4 = z4 + t
+        z5 = z5 + y
+        z6 = z6 + u
+        z7 = z7 + i
+        z8 = o
+        print ("Y=40    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f" % (t,y,u,i,o,(t+y+u+i+o)))
+        t = lawb(a,b,10,50)
+        y = lawb(a,b,20,50)
+        u = lawb(a,b,30,50)
+        i = lawb(a,b,40,50)
+        o = lawb(a,b,50,50)
+        z5 = z5 + t
+        z6 = z6 + y
+        z7 = z7 + u
+        z8 = z8 + i
+        z9 = o
+        print ("Y=50    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f" % (t,y,u,i,o,(t+y+u+i+o)))
+        t = law(a, 10)
+        y = law(a, 20)
+        u = law(a, 30)
+        i = law(a, 40)
+        o = law(a, 50)
+        print ("X law   %.3f    %.3f    %.3f    %.3f    %.3f    %.3f" % (t,y,u,i,o,(t+y+u+i+o)))
+        print ("------------------------------------------------------------------------------------------\nz         20       30       40       50       60       70       80       90       100")
+        print ("p(Z=z)    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f    %.3f"%(z1,z2,z3,z4,z5,z6,z7,z8,z9))
+        print ("------------------------------------------------------------------------------------------")
+        z2 = 10*(law(a,10))+20*(law(a, 20))+30*(law(a, 30))+40*(law(a, 40))+50*(law(a, 50))
+        var1 = pow(10,2)*(law(a,10))+pow(20,2)*(law(a, 20))+pow(30,2)*(law(a, 30))+pow(40,2)*(law(a, 40))+pow(50,2)*(law(a, 50)) - pow(z2, 2) 
+        print ("expected  value  of X:      %.1f"%(z2))
+        print ("variance  of X:             %.1f"%(var1))
+        z1 = 10*(law(b,10))+20*(law(b, 20))+30*(law(b, 30))+40*(law(b, 40))+50*(law(b, 50))
+        var2 = pow(10,2)*(law(b,10))+pow(20,2)*(law(b, 20))+pow(30,2)*(law(b, 30))+pow(40,2)*(law(b, 40))+pow(50,2)*(law(b, 50)) - pow(z1, 2)
+        print ("expected  value  of Y:      %.1f"%(z1))
+        print ("variance  of Y:             %.1f"%(var2))
+        z3 = z1 + z2
+        varz = var1 + var2
+        print ("expected  value  of Z:      %.1f"%(z3))
+        print ("variance  of Z:             %.1f"%(varz))
+        exit (0)

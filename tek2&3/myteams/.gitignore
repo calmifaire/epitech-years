@@ -1,0 +1,6 @@
+example/
+.vscode/
+*.o
+*.out
+save/
+description/

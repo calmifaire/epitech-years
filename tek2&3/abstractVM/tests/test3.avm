@@ -1,0 +1,7 @@
+push int32(45)
+push int16(34)
+store int8(8)
+clear
+load int8(8)
+dump
+exit

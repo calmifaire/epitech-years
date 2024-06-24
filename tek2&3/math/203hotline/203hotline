@@ -1,0 +1,211 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 203
+## File description:
+## 203
+##
+
+import sys
+import time
+from math import *
+
+def getcomb(n,k):
+        c = comb(n,k)
+        return (c)
+
+def getsecond(p,k):
+        c = p**k
+        return (c)
+
+def getlast(p,k):
+        p1 = 1 - p
+        c = p1 ** k
+        return (c)
+
+def getlambda(d):
+        l = 3500*(d/(8*3600))
+        return (l)
+
+if __name__ == "__main__":
+        arg = len(sys.argv) - 1
+        if (arg < 1 or arg > 2):
+                print ("USAGE\n    ./203hotline [n k | d]\n\nDESCRIPTION\n    n       n value for the computation of C(n, k)\n    k       k value for the computation of C(n, k)\n    d       average duration of calls (in seconds)")
+                exit (84)
+        if (sys.argv[1] == "-h"):
+                print ("USAGE\n    ./203hotline [n k | d]\n\nDESCRIPTION\n    n       n value for the computation of C(n, k)\n    k       k value for the computation of C(n, k)\n    d       average duration of calls (in seconds)")
+                exit (0)
+        if (arg == 1):
+                for x in range(0, len(sys.argv[1])):
+                        if (sys.argv[1][x] < '0' or sys.argv[1][x] > '9'):
+                                print ("invalide argument")
+                                exit (84)
+                d = int(sys.argv[1])
+                p = d/(8*3600)
+                over = 0
+                n = 0
+                start = time.time()
+                n0 = getcomb(3500,0)*getsecond(p,0)*getlast(p,3500-0)
+                n1 = getcomb(3500,1)*getsecond(p,1)*getlast(p,3500-1)
+                n2 = getcomb(3500,2)*getsecond(p,2)*getlast(p,3500-2)
+                n3 = getcomb(3500,3)*getsecond(p,3)*getlast(p,3500-3)
+                n4 = getcomb(3500,4)*getsecond(p,4)*getlast(p,3500-4)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("Binomial distribution:")
+                print("0 -> %.3f      1 -> %.3f      2 -> %.3f      3 -> %.3f      4 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,5)*getsecond(p,5)*getlast(p,3500-5)
+                n1 = getcomb(3500,6)*getsecond(p,6)*getlast(p,3500-6)
+                n2 = getcomb(3500,7)*getsecond(p,7)*getlast(p,3500-7)
+                n3 = getcomb(3500,8)*getsecond(p,8)*getlast(p,3500-8)
+                n4 = getcomb(3500,9)*getsecond(p,9)*getlast(p,3500-9)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("5 -> %.3f      6 -> %.3f      7 -> %.3f      8 -> %.3f      9 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,10)*getsecond(p,10)*getlast(p,3500-10)
+                n1 = getcomb(3500,11)*getsecond(p,11)*getlast(p,3500-11)
+                n2 = getcomb(3500,12)*getsecond(p,12)*getlast(p,3500-12)
+                n3 = getcomb(3500,13)*getsecond(p,13)*getlast(p,3500-13)
+                n4 = getcomb(3500,14)*getsecond(p,14)*getlast(p,3500-14)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("10 -> %.3f     11 -> %.3f     12 -> %.3f     13 -> %.3f     14 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,15)*getsecond(p,15)*getlast(p,3500-15)
+                n1 = getcomb(3500,16)*getsecond(p,16)*getlast(p,3500-16)
+                n2 = getcomb(3500,17)*getsecond(p,17)*getlast(p,3500-17)
+                n3 = getcomb(3500,18)*getsecond(p,18)*getlast(p,3500-18)
+                n4 = getcomb(3500,19)*getsecond(p,19)*getlast(p,3500-19)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("15 -> %.3f     16 -> %.3f     17 -> %.3f     18 -> %.3f     19 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,20)*getsecond(p,20)*getlast(p,3500-20)
+                n1 = getcomb(3500,21)*getsecond(p,21)*getlast(p,3500-21)
+                n2 = getcomb(3500,22)*getsecond(p,22)*getlast(p,3500-22)
+                n3 = getcomb(3500,23)*getsecond(p,23)*getlast(p,3500-23)
+                n4 = getcomb(3500,24)*getsecond(p,24)*getlast(p,3500-24)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("20 -> %.3f     21 -> %.3f     22 -> %.3f     23 -> %.3f     24 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,25)*getsecond(p,25)*getlast(p,3500-25)
+                over = over + n0
+                n1 = getcomb(3500,26)*getsecond(p,26)*getlast(p,3500-26)
+                n2 = getcomb(3500,27)*getsecond(p,27)*getlast(p,3500-27)
+                n3 = getcomb(3500,28)*getsecond(p,28)*getlast(p,3500-28)
+                n4 = getcomb(3500,29)*getsecond(p,29)*getlast(p,3500-29)
+                print("25 -> %.3f     26 -> %.3f     27 -> %.3f     28 -> %.3f     29 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,30)*getsecond(p,30)*getlast(p,3500-30)
+                n1 = getcomb(3500,31)*getsecond(p,31)*getlast(p,3500-31)
+                n2 = getcomb(3500,32)*getsecond(p,32)*getlast(p,3500-32)
+                n3 = getcomb(3500,33)*getsecond(p,33)*getlast(p,3500-33)
+                n4 = getcomb(3500,34)*getsecond(p,34)*getlast(p,3500-34)
+                print("30 -> %.3f     31 -> %.3f     32 -> %.3f     33 -> %.3f     34 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,35)*getsecond(p,35)*getlast(p,3500-35)
+                n1 = getcomb(3500,36)*getsecond(p,36)*getlast(p,3500-36)
+                n2 = getcomb(3500,37)*getsecond(p,37)*getlast(p,3500-37)
+                n3 = getcomb(3500,38)*getsecond(p,38)*getlast(p,3500-38)
+                n4 = getcomb(3500,39)*getsecond(p,39)*getlast(p,3500-39)
+                print("35 -> %.3f     36 -> %.3f     37 -> %.3f     38 -> %.3f     39 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,40)*getsecond(p,40)*getlast(p,3500-40)
+                n1 = getcomb(3500,41)*getsecond(p,41)*getlast(p,3500-41)
+                n2 = getcomb(3500,42)*getsecond(p,42)*getlast(p,3500-42)
+                n3 = getcomb(3500,43)*getsecond(p,43)*getlast(p,3500-43)
+                n4 = getcomb(3500,44)*getsecond(p,44)*getlast(p,3500-44)
+                print("40 -> %.3f     41 -> %.3f     42 -> %.3f     43 -> %.3f     44 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,45)*getsecond(p,45)*getlast(p,3500-45)
+                n1 = getcomb(3500,46)*getsecond(p,46)*getlast(p,3500-46)
+                n2 = getcomb(3500,47)*getsecond(p,47)*getlast(p,3500-47)
+                n3 = getcomb(3500,48)*getsecond(p,48)*getlast(p,3500-48)
+                n4 = getcomb(3500,49)*getsecond(p,49)*getlast(p,3500-49)
+                print("45 -> %.3f     46 -> %.3f     47 -> %.3f     48 -> %.3f     49 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = getcomb(3500,50)*getsecond(p,50)*getlast(p,3500-50)
+                print("50 -> %.3f"%(n0))
+                print("Overload: %.1f%%"%((1-over)*100))
+                end = time.time()
+                print("Computation time: %.2f ms\n"%(end-start))
+                start = time.time()
+                print("Poisson distribution:")
+                l = getlambda(d)
+                over = 0
+                n0 = 0
+                n1 = l**1/factorial(1)*exp(-l)
+                n2 = l**2/factorial(2)*exp(-l)
+                n3 = l**3/factorial(3)*exp(-l)
+                n4 = l**4/factorial(4)*exp(-l)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("0 -> %.3f      1 -> %.3f      2 -> %.3f      3 -> %.3f      4 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**5/factorial(5)*exp(-l)
+                n1 = l**6/factorial(6)*exp(-l)
+                n2 = l**7/factorial(7)*exp(-l)
+                n3 = l**8/factorial(8)*exp(-l)
+                n4 = l**9/factorial(9)*exp(-l)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("5 -> %.3f      6 -> %.3f      7 -> %.3f      8 -> %.3f      9 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**10/factorial(10)*exp(-l)
+                n1 = l**11/factorial(11)*exp(-l)
+                n2 = l**12/factorial(12)*exp(-l)
+                n3 = l**13/factorial(13)*exp(-l)
+                n4 = l**14/factorial(14)*exp(-l)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("10 -> %.3f     11 -> %.3f     12 -> %.3f     13 -> %.3f     14 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**15/factorial(15)*exp(-l)
+                n1 = l**16/factorial(16)*exp(-l)
+                n2 = l**17/factorial(17)*exp(-l)
+                n3 = l**18/factorial(18)*exp(-l)
+                n4 = l**19/factorial(19)*exp(-l)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("15 -> %.3f     16 -> %.3f     17 -> %.3f     18 -> %.3f     19 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**20/factorial(20)*exp(-l)
+                n1 = l**21/factorial(21)*exp(-l)
+                n2 = l**22/factorial(22)*exp(-l)
+                n3 = l**23/factorial(23)*exp(-l)
+                n4 = l**24/factorial(24)*exp(-l)
+                over = over + n1 + n2 + n3 + n4 + n0
+                print("20 -> %.3f     21 -> %.3f     22 -> %.3f     23 -> %.3f     24 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**25/factorial(25)*exp(-l)
+                over = over + n0
+                n1 = l**26/factorial(26)*exp(-l)
+                n2 = l**27/factorial(27)*exp(-l)
+                n3 = l**28/factorial(28)*exp(-l)
+                n4 = l**29/factorial(29)*exp(-l)
+                print("25 -> %.3f     26 -> %.3f     27 -> %.3f     28 -> %.3f     29 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**30/factorial(30)*exp(-l)
+                n1 = l**31/factorial(31)*exp(-l)
+                n2 = l**32/factorial(32)*exp(-l)
+                n3 = l**33/factorial(33)*exp(-l)
+                n4 = l**34/factorial(34)*exp(-l)
+                print("30 -> %.3f     31 -> %.3f     32 -> %.3f     33 -> %.3f     34 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**35/factorial(35)*exp(-l)
+                n1 = l**36/factorial(36)*exp(-l)
+                n2 = l**37/factorial(37)*exp(-l)
+                n3 = l**38/factorial(38)*exp(-l)
+                n4 = l**39/factorial(39)*exp(-l)
+                print("35 -> %.3f     36 -> %.3f     37 -> %.3f     38 -> %.3f     39 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**40/factorial(40)*exp(-l)
+                n1 = l**41/factorial(41)*exp(-l)
+                n2 = l**42/factorial(42)*exp(-l)
+                n3 = l**43/factorial(43)*exp(-l)
+                n4 = l**44/factorial(44)*exp(-l)
+                print("40 -> %.3f     41 -> %.3f     42 -> %.3f     43 -> %.3f     44 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**45/factorial(45)*exp(-l)
+                n1 = l**46/factorial(46)*exp(-l)
+                n2 = l**47/factorial(47)*exp(-l)
+                n3 = l**48/factorial(48)*exp(-l)
+                n4 = l**49/factorial(49)*exp(-l)
+                print("45 -> %.3f     46 -> %.3f     47 -> %.3f     48 -> %.3f     49 -> %.3f"%(n0,n1,n2,n3,n4))
+                n0 = l**50/factorial(50)*exp(-l)
+                print("50 -> %.3f"%(n0))
+                print("Overload: %.1f%%"%((1-over)*100))
+                end = time.time()
+                print("Computation time: %.2f ms"%(end-start))
+        if (arg == 2):
+                for x in range(0, len(sys.argv[1])):
+                        if (sys.argv[1][x] < '0' or sys.argv[1][x] > '9'):
+                                print ("invalide first argument")
+                                exit (84)
+                for x in range(0, len(sys.argv[2])):
+                        if (sys.argv[2][x] < '0' or sys.argv[2][x] > '9'):
+                                print ("invalide last argument")
+                                exit (84)
+                n = int(sys.argv[1])
+                k = int(sys.argv[2])
+                if (k > n):
+                        exit(84)
+                print("%d-combinations of a set of size %d:"%(k,n))
+                l = comb(n,k)
+                print("%d"%l)
+        exit (0)

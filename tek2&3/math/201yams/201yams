@@ -1,0 +1,224 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## yams
+## File description:
+## yams
+##
+
+import sys
+from math import *
+
+def straight(a, b):
+        i = 0
+        h = 0
+        k = 0
+        j = 0
+        l = 0
+        for x in range(1, 6):
+                if (int(sys.argv[x]) == b - 4):
+                        i = 1
+                if (int(sys.argv[x]) == b - 3):
+                        h = 1
+                if (int(sys.argv[x]) == b - 2):
+                        k = 1
+                if (int(sys.argv[x]) == b - 1):
+                        j = 1
+                if (int(sys.argv[x]) == b):
+                        l = 1
+        i = i + h + k + j + l
+        if (i == 5):
+                print ("Chances to get a %d straight: 100.00%%" % b)
+        if (i == 4):
+                i = 100*(1/6)
+                print ("Chances to get a %d straight: %.2f%%" % (b, i))
+        if (i == 3):
+                i = 100*(2/36)
+                print ("Chances to get a %d straight: %.2f%%" % (b, i))
+        if (i == 2):
+                i = 100*(6/216)
+                print ("Chances to get a %d straight: %.2f%%" % (b, i))
+        if (i == 1):
+                i = 100*(24/1296)
+                print ("Chances to get a %d straight: %.2f%%" % (b, i))
+        if (i == 0):
+                i = 100*(120/7776)
+                print ("Chances to get a %d straight: %.2f%%" % (b,i))
+
+def full(a, b, c):
+        i = 0
+        j = 0
+        for x in range(1, 6):
+                if (int(sys.argv[x]) == b):
+                        i += 1
+                if (int(sys.argv[x]) == c):
+                        j += 1
+        if (i == 3 and j == 2):
+                print ("Chances to get a %d full of %d: 100.00%%" % (b,c))
+        if (i == 3 and j == 0):
+                i = 100*(1/6)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 3 and j == 0):
+                i = 100*(1/36)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 0 and j >= 2):
+                i = 100*(1/216)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 2 and j >= 2):
+                i = 100*(1/6)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 2 and j == 1):
+                i = 100*(1/36)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 2 and j == 0):
+                i = 100*(3/216)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 1 and j >= 2):
+                i = 100*(1/36)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 1 and j == 1):
+                i = 100*(3/216)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 0 and j == 1):
+                i = 100*(4/1296)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 1 and j == 0):
+                i = 100*(6/1296)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c, i))
+        if (i == 0 and j == 0):
+                i = 100*(10/7776)
+                print ("Chances to get a %d full of %d: %.2f%%" % (b,c,i))
+
+def yams(a, b):
+        i = 0
+        for x in range(1, 6):
+                if (int(sys.argv[x]) == b):
+                        i += 1
+        if (i == 5):
+                print ("Chances to get a %d yams: 100.00%%" % b)
+        if (i == 4):
+                i = 100*(1/6)
+                print ("Chances to get a %d yams: %.2f%%" % (b, i))
+        if (i == 3):
+                i = 100*(1/36)
+                print ("Chances to get a %d yams: %.2f%%" % (b, i))
+        if (i == 2):
+                i = 100*(1/216)
+                print ("Chances to get a %d yams: %.2f%%" % (b, i))
+        if (i == 1):
+                i = 100*(1/1296)
+                print ("Chances to get a %d yams: %.2f%%" % (b, i))
+        if (i == 0):
+                i = 100*(1/7776)
+                print ("Chances to get a %d yams: %.2f%%" % (b,i))
+
+def four(a, b):
+        i = 0
+        for x in range(1, 6):
+                if (int(sys.argv[x]) == b):
+                        i += 1
+        if (i >= 4):
+                print ("Chances to get a %d four-of-a-kind: 100.00%%" % b)
+        if (i == 3):
+                i = 100*(11/36)
+                print ("Chances to get a %d four-of-a-kind: %.2f%%" % (b, i))
+        if (i == 2):
+                i = 100*(16/216)
+                print ("Chances to get a %d four-of-a-kind: %.2f%%" % (b, i))
+        if (i == 1):
+                i = 100*(126/6/1296)
+                print ("Chances to get a %d four-of-a-kind: %.2f%%" % (b, i))
+        if (i == 0):
+                i = 100*(26/7776)
+                print ("Chances to get a %d four-of-a-kind: %.2f%%" % (b,i))
+
+def three(a, b):
+        i = 0
+        for x in range(1, 6):
+                if (int(sys.argv[x]) == b):
+                        i += 1
+        if (i >= 3):
+                print ("Chances to get a %d three-of-a-kind: 100.00%%" % b)
+        if (i == 2):
+                i = 100*(91/216)
+                print ("Chances to get a %d three-of-a-kind: %.2f%%" % (b, i))
+        if (i == 1):
+                i = 100*(171/1296)
+                print ("Chances to get a %d three-of-a-kind: %.2f%%" % (b, i))
+        if (i == 0):
+                i = 100*(276/7776)
+                print ("Chances to get a %d three-of-a-kind: %.2f%%" % (b,i))
+
+def pair(a, b):
+        i = 0
+        for x in range(1, 6):
+                if (int(sys.argv[x]) == b):
+                        i += 1
+        if (i >= 2):
+                print ("Chances to get a %d pair: 100.00%%" % b)
+        if (i == 1):
+                i = 100*(671/1296)
+                print ("Chances to get a %d pair: %.2f%%" % (b, i))
+        if (i == 0):
+                i = 100*(1526/7776)
+                print ("Chances to get a %d pair: %.2f%%" % (b, i))
+
+if __name__ == "__main__":
+        arg = len(sys.argv) - 1
+        i = 0
+        if (arg != 6):
+                print ("USAGE\n   ./201yams d1 d2 d3 d4 d5 c\n\nDESCRIPTION\n   d1      value of the first die (0 if not thrown)\n   d2      value of the second die (0 if not thrown)\n   d3      value of the third die (0 if not thrown)\n   d4      value of the fourth die (0 if not thrown)\n   d5      value of the fifth die (0 if not thrown)\n   c       expected combination")
+                exit (84)
+        if (sys.argv[1][0] < '0' or sys.argv[1][0] > '6' or len(sys.argv[1]) > 1):
+                print ("not a face on a dice for first dice")
+                i += 1
+        if (sys.argv[2][0] < '0' or sys.argv[2][0] > '6' or len(sys.argv[2]) > 1):
+                print ("not a face on a dice for second dice")
+                i += 1
+        if (sys.argv[3][0] < '0' or sys.argv[3][0] > '6' or len(sys.argv[3]) > 1):
+                print ("not a face on a dice for third dice")
+                i += 1
+        if (sys.argv[4][0] < '0' or sys.argv[4][0] > '6' or len(sys.argv[4]) > 1):
+                print ("not a face on a dice for fourth dice")
+                i += 1
+        if (sys.argv[5][0] < '0' or sys.argv[5][0] > '6' or len(sys.argv[5]) > 1):
+                print ("not a face on a dice for fifth dice")
+                i += 1
+        arg = sys.argv[6].split("_")
+        if (arg[0] != "pair" and arg[0] != "three" and arg[0] != "four" and arg[0] != "full" and arg[0] != "straight" and arg[0] != "yams"):
+                print ("unknow combinaison")
+                i += 1
+        if (len(arg) < 2 or arg[0] == "full" and len(arg) < 3):
+                print ("combinaison missing argument")
+                exit (84);
+        if (len(arg) > 2 and arg[0] != "full" or arg[0] == "full" and len(arg) != 3):
+                print ("combinaison too many argument")
+                exit (84);
+        if (arg[1] < '1' or arg[1] > '6'):
+                print ("number of combinaison impossible")
+                i += 1
+        if (arg[0] == "full"):
+                if (arg[2] < '1' or arg[2] > '6'):
+                    print ("number of combinaison impossible")
+                    i += 1
+                if (arg[1] == arg[2]):
+                        print ("combinaison can't be the same number")
+                        i += 1
+        if (arg[0] == "straight"):
+                if (arg[1] < '5' or arg[1] > '6'):
+                        print ("number of combinaison impossible")
+                        i += 1                                                                                                                          
+        if (i != 0):
+                exit (84)
+        if (arg[0] == "pair"):
+                pair(sys.argv, int(arg[1]))
+        if (arg[0] == "three"):
+                three(sys.argv, int(arg[1]))
+        if (arg[0] == "four"):
+                four(sys.argv, int(arg[1]))
+        if (arg[0] == "yams"):
+                yams(sys.argv, int(arg[1]))
+        if (arg[0] == "full"):
+                full(sys.argv, int(arg[1]), int(arg[2]))
+        if (arg[0] == "straight"):
+                straight(sys.argv, int(arg[1]))

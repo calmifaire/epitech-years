@@ -1,0 +1,200 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 208
+## File description:
+## 208
+##
+
+import sys
+from math import *
+
+def printing_x(merge):
+    print ("   x    |",end="")
+    for x in range (0, len(merge)):
+        if (x == 8):
+            if (merge[x][0] == 0):
+                print (" 8+    |", end="")
+            else:
+                print ("+    |",end="")
+        elif (merge[x][0] == 1):
+            print (" %d"%(x),end="")
+        elif (merge[x][0] == 2):
+            print ("-%d   |"%(x),end="")
+        elif (merge[x][0] == 0):
+            print (" %d     |"%(x),end="")
+    print (" Total")
+
+def printing_Ox(merge):
+    a = []*8
+    print ("  Ox    |",end="")
+    for x in range (0, len(merge)):
+        if (merge[x][0] == 1 or merge[x][0] == 0):
+            a.append(merge[x][1])
+    for x in range (0, len(a)):
+        print (" %d    |"%(a[x]), end="")
+    print (" 100")
+
+def merged(Ox):
+    for x in range (0, len(Ox)):
+        if (Ox[x][1] < 10 and Ox[x][0] == 0):
+            ok = 0
+            for y in range (1, len(Ox)):
+                if (ok == 1):
+                    break
+                if (x <= 0):
+                    Ox[x][1] += Ox[x+y][1]
+                    if (Ox[x][1] > 9):
+                        Ox[x][0] = 1
+                        Ox[x+y][0] = 2
+                        ok = 1
+                    else:
+                        Ox[x+y][0] = -1
+                elif (Ox[x+y][1] < Ox[x-y][1] and Ox[x+y][0] == 0):
+                    Ox[x][1] += Ox[x+y][1]
+                    if (Ox[x][1] > 9):
+                        Ox[x][0] = 1
+                        Ox[x+y][0] = 2
+                        ok = 1
+                    else:
+                        Ox[x][0] = 1
+                        Ox[x+y][0] = -1
+                elif (Ox[x-y][1] < Ox[x+y][1] and Ox[x-y][0] == 0):
+                    Ox[x-y][1] += Ox[x][1]
+                    if (Ox[x-y][1] > 9):
+                        Ox[x-y][0] = 1
+                        Ox[x][0] = 2
+                        ok = 1
+                    else:
+                        Ox[x-y][0] = 1
+                        Ox[x][0] = -1
+    return (Ox)
+
+def print_TOx(TOx, Ox):
+    l = 0
+    print ("  Tx    |",end="")
+    for x in range (0, len(Ox)):
+        l = 0
+        if (Ox[x][0] == 0):
+            l = TOx[x]
+        if (Ox[x][0] == 1):
+            for x in range (x, len(Ox)):
+                l = l + TOx[x]
+                if (Ox[x][0] == 2):
+                    break
+        if (Ox[x][0] == 0 or Ox[x][0] == 2 and l >= TOx[x]):
+            if (l < 10):
+                print (" %.1f   |"%(l), end="")
+            else:
+                print (" %.1f  |"%(l), end="")
+    print (" 100")
+
+def make_TOx(lOx,p):
+    TOx = []*8
+    for x in range (0, len(lOx) - 1):
+        t = comb(100, x)
+        l = 100 * t
+        t = p**x
+        l = l * t
+        t = (1-p)**(100-x)
+        l = l * t
+        TOx.append(l)
+    l = 100
+    for x in range (0, len(TOx)):
+        l = l - TOx[x]
+    TOx.append(l)
+    return (TOx)
+
+def calculate_squared(Ox, TOx):
+    total = 0
+    for x in range (0, len(Ox)):
+        u = 0
+        d = 0
+        if (Ox[x][0] == 0):
+            u = (Ox[x][1] - TOx[x])**2
+            d = TOx[x]
+            total = total + u/d
+        if (Ox[x][0] == 1):
+            u = Ox[x][1]
+            for x in range (x, len(Ox)):
+                d = d + TOx[x]
+                if (Ox[x][0] == 2):
+                    break
+            u = (u - d)**2
+            total = total + u/d
+    return (total)
+
+def find_validity(v, x2):
+    validity = [[99, 90, 80, 70, 60, 50, 40, 30, 20, 10, 5, 2, 1],
+                [0.00, 0.02, 0.06, 0.15, 0.27, 0.45, 0.71, 1.07, 1.64, 2.71, 3.84, 5.41, 6.63],
+                [0.02, 0.21, 0.45, 0.71, 1.02, 1.39, 1.83, 2.41, 3.22, 4.61, 5.99, 7.82, 9.21],
+                [0.11, 0.58, 1.01, 1.42, 1.87, 2.37, 2.95, 3.66, 4.64, 6.25, 7.81, 9.84, 11.34],
+                [0.30, 1.06, 1.65, 2.19, 2.75, 3.36, 4.04, 4.88, 5.99, 7.78, 9.49, 11.67, 13.28],
+                [0.55, 1.61, 2.34, 3.00, 3.66, 4.35, 5.13, 6.06, 7.29, 9.24, 11.07, 13.39, 15.09],
+                [0.87, 2.20, 3.07, 3.83, 4.57, 5.35, 6.21, 7.23, 8.56, 10.64, 12.59, 15.03, 16.81],
+                [1.24, 2.83, 3.82, 4.67, 5.49, 6.35, 7.28, 8.38, 9.80, 12.02, 14.07, 16.62, 18.48],
+                [1.65, 3.49, 4.59, 5.53, 6.42, 7.34, 8.35, 9.52, 11.03, 13.36, 15.51, 18.17, 20.09],
+                [2.09, 4.17, 5.38, 6.39, 7.36, 8.34, 9.41, 10.66, 12.24, 14.68, 16.92, 19.68, 21.67],
+                [2.56, 4.87, 6.18, 7.27, 8.30, 9.34, 10.47, 11.78, 13.44, 15.99, 18.31, 21.16, 23.21]]
+    for x in range (0, len(validity[v])):
+        if (x == 0 and x2 < validity[v][x]):
+            print ("Fit validity:           P > %d%%"%(validity[0][x]))
+            break
+        elif (x < len(validity[v])-1):
+            if (x2 < validity[v][x+1] and x2 > validity[v][x]):
+                print ("Fit validity:           %d%% < P < %d%%"%(validity[0][x+1],validity[0][x]))
+                break
+        elif (x == len(validity[v]) - 1):
+            if (x2 > validity[v][x]):
+                print ("Fit validity:           P < %d%%"%(validity[0][x]))
+                break
+
+if __name__ ==  "__main__":
+    arg = len(sys.argv) - 1
+    if (arg != 9):
+        print ("USAGE\n    ./208dowels O0 O1 O2 O3 O4 O5 O6 O7 O8\n\nDESCRIPTION\n    Oi    size of the observed class")
+        if (arg != 1):
+            exit (84)
+        if (sys.argv[1] == "-h"):
+            exit (0)
+        else:
+            exit (84)
+    for x in range(1, arg + 1):
+        for y in range(0, len(sys.argv[x])):
+            if ((sys.argv[x][y] < '0' or sys.argv[x][y] > '9') and sys.argv[x][y] != '.'):
+                print ("%s invalide argument"%sys.argv[x])
+                exit (84)
+            if (float(sys.argv[x]) > 100):
+                print ("%s argument above 100"%sys.argv[x])
+                exit (84)
+    O0 = float(sys.argv[1])
+    O1 = float(sys.argv[2])
+    O2 = float(sys.argv[3])
+    O3 = float(sys.argv[4])
+    O4 = float(sys.argv[5])
+    O5 = float(sys.argv[6])
+    O6 = float(sys.argv[7])
+    O7 = float(sys.argv[8])
+    O8 = float(sys.argv[9])
+    Ox = [[0,O0],[0,O1],[0,O2],[0,O3],[0,O4],[0,O5],[0,O6],[0,O7],[0,O8]]
+    lOx = [[0,O0],[0,O1],[0,O2],[0,O3],[0,O4],[0,O5],[0,O6],[0,O7],[0,O8]]
+    merge = merged(Ox)
+    printing_x(merge)
+    printing_Ox(merge)
+    D = 0
+    for x in range(0, len(lOx)):
+        D = D + x * lOx[x][1]
+    p = D / (100 * 100)
+    TOx = make_TOx(lOx, p)
+    print_TOx(TOx, Ox)
+    print ("Distribution:           B(100, %.4f)"%(p))
+    x2 = calculate_squared(Ox, TOx)
+    print ("Chi-squared:            %.3f"%(x2))
+    v = 0
+    for x in range(0, len(Ox)):
+        if (Ox[x][0] == 1 or Ox[x][0] == 0):
+            v = v + 1
+    v = v - 2
+    print ("Degrees of freedom:     %d"%(v))
+    find_validity(v, x2)
+    exit (0)

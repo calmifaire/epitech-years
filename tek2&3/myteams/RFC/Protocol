@@ -1,0 +1,370 @@
+myteams protocol                                             5 June 2022
+
+Introduction
+
+--------------
+
+This Protocol defines how the information is transmitted
+between our client and server.
+
+The code goes from 1 to 23 and from 40 to 46 in case of error.
+
+When an asterix appears it is followed by the code sent, 
+note that for a reason of visibility the spaces put in messages 
+do not exist in the code and the message begins at the first number.
+
+
+Client to Server
+
+------------------
+
+When a client wants to login :
+
+    * 1 \n user_name \n\0
+
+
+When the client wants to logout :
+
+    * 2 \n\0
+
+
+When the client wants information about all users :
+
+    * 3 \n\0
+
+
+When it a specific user :
+
+    * 4 \n uuid_user \n\0
+
+    uuid_user being the uuid of the user you specifie.
+
+
+When the client wants to send a messages :
+
+    * 5 \n uuid_user \n message \n\0"
+
+    uuid_user being the uuid of the user you send the messages.
+
+
+When the client wants to see the history of private messages with a another user :
+
+    * 6 \n uuid_user \n\0"
+
+    uuid_user being the uuid of the user you have communicate
+
+
+When the client wants to subscribe to a team :
+
+    * 7 \n uuid_team \n\0
+
+    uuid_team being the uuid of the team the client wants to subcribe.
+
+
+When the client wants to know all team he subscrbed :
+
+    * 8 \n\0
+
+
+When the client wants to know who is subscribed to a specific team
+
+    * 9 \n uuid_team \n\0
+
+    uuid_team being the uuid of the team the client wants to check the users.
+
+
+When the client wants to subscribe to a team :
+
+    * 10 \n uuid_team \n\0
+
+    uuid_team being the uuid of the team the client wants to unsubcribe.
+
+
+For the next codes, the client as to send first one of this code to specifie the context :
+
+    * 15 \n\0
+
+    * 16 \n uuid_team \n\0
+
+    * 17 \n uuid_team \n uuid_channel \n\0
+
+    * 18 \n uuid_team \n uuid_channel \n uuid_thread \n\0
+
+    each uuid is use to specifie wich team, channel, and thread we talk about.
+
+
+The codes number to uses to set the context will be specifie in parenthese for the next codes
+
+When the client wants to create a team (15), a channel (16), or a thread (17) :
+    
+    * 11 \n name \n description \n\0
+
+    name being the name of the team, the channel, or the title of the thread.
+    description being the description of the team, the channel, or the vody of the thread.
+
+
+When the client wants to create a comment on a thread (18) :
+
+    * 12 \n body \n\0
+
+    body being the messages in the comment.
+
+
+When the client wants a lsit of teams (15), channels (16), threads (17), or reply (18):
+
+    * 13 \n\0
+
+
+When the client wants the info of himself as user (15), a team (16), channel (17), or thread (18):
+
+    * 14 \n\0
+
+
+
+Server to Client
+
+------------------
+
+When the server send a list the code each elemnt is seperated with "\n\n...".
+The dots represent the repeat of what is after the number and \n.
+
+When a Client have logged in :
+
+    * 1 \n uuid_user \n user_name \n\0
+
+    uuid_user being the uuid of the user who logged in
+    user_name being the name of the user who logged in
+
+
+When a Client have logged out :
+
+    * 2 \n uuid_user \n user_name \n\0
+
+    uuid_user being the uuid of the user who logged out
+    user_name being the name of the user who logged out
+
+
+When the Client have requested a list of users :
+
+    * 3 \n uuid_user \n user_name \n status \n\n ... \n\0
+
+    uuid_user being the uuid of the user
+    user_name being the name of the user
+    status is 0 if the user is logged out and 1 if logged in
+
+
+When the Client have requested a user information :
+
+    * 4 \n user_uuid \n user_name \n status \n\0
+
+    uuid_user being the uuid of the user specifie
+    user_name being the name of the user specifie
+    status is 0 if the user is logged out and 1 if logged in
+
+
+When the Client get a private messages: 
+
+    * 5 \n user_uuid \n message \n\0
+
+    uuid_user being the uuid of the user who send it
+
+
+When the Client have requested a list of private messages
+
+    * 6 \n user_uuid \n timestamp \n message \n\n ... \n\0
+
+    uuid_user being the uuid of the user who send it
+    timestamp the time the messages was send
+
+
+When the Client succefully subscribe to a team :
+
+    * 7 \n uuid_user \n uuid_team \n\0
+    
+    uuid_user being the uuid of the user who subscribe
+    uuid_team being the uuid of the team he subscribe
+
+
+When the Client requested a list of team he subscibed
+
+    * 8 \n uuid_team \n teams_name \n description \n\n ... \n\0
+
+    uuid_team being the uuid of the team
+    team_name being the uuid of the team
+    desciption being the description of the team
+
+
+When the Client unsubscribe succefully from a team
+
+    * 9 \n uuid_user \n uuid_team \n\0
+
+    uuid_user being the uuid of the user who unsubscribe
+    uuid_team being the uuid of the team he unsubscribe
+
+
+when the Client suceefully create a:
+    teams :
+
+        * 10 \n uuid_team \n team_name \n description \n\0
+
+        uuid_team being the uuid of the team
+        team_name being the uuid of the team
+        desciption being the description of the team
+
+	channel : 
+
+        * 11 \n uuid_channel \n channel_name \n description \n\0
+
+        uuid_channel being the uuid of the channel
+        channel_name being the uuid of the channel
+        desciption being the description of the channel
+
+	thread :
+
+        * 12 \n thread_uuid \n user_uuid \n timestamp \n thread_title \n thread_body \n\0
+
+        thread_uuid being the uuid of the thread
+        uuid_user being the uuid of the user who create it
+        timestamp the time the thread was create
+        thread_title the title of the thread
+        thread_body being the message of the thread
+
+	comment: 
+        
+        * 13 \n thread_uuid \n user_uuid \n timestamp \n comment_body \n\0
+
+        thread_uuid being the uuid of the thread
+        uuid_user being the uuid of the user who create it
+        timestamp the time the comment was create
+        comment_body being the message of the reply
+
+
+When another Client succefully create a :
+    teams :
+
+        * 20 \n uuid_teams \n teams_name \n description \n\0
+
+        uuid_team being the uuid of the team
+        team_name being the uuid of the team
+        desciption being the description of the team
+
+	channel : 
+
+        * 21 \n uuid_channel \n channel_name \n description \n\0
+
+        uuid_channel being the uuid of the channel
+        channel_name being the uuid of the channel
+        desciption being the description of the channel
+
+	thread :
+
+        * 22 \n thread_uuid \n uuid_user \n timestamp \n thread_title \n thread_body \n\0
+
+        thread_uuid being the uuid of the thread
+        uuid_user being the uuid of the user who create it
+        timestamp the time the thread was create
+        thread_title the title of the thread
+        thread_body being the message of the thread
+
+	comment: 
+        
+        * 23 \n uuid_teams \n thread_uuid \n user_uuid \n comment_body \n\0
+
+        uuid_teams being the uuid of the teams where it was create
+        thread_uuid being the uuid of the thread where it was create
+        user_uuid being the uuid of the user who create it
+        comment_body being the message of the reply
+
+
+When the client receive a list of :
+    channel : 
+
+        * 14 \n uuid_channel \n channel_name \n description \n\n ... \n\0
+
+        uuid_channel being the uuid of the channel
+        channel_name being the uuid of the channel
+        desciption being the description of the channel
+    
+    thread :
+        
+        * 15 \n thread_uuid \n user_uuid \n timestamp \n thread_title \n thread_body \n\n ... \n\0
+
+        thread_uuid being the uuid of the thread
+        user_uuid being the uuid of the user who create it
+        timestamp the time the thread was create
+        thread_title the title of the thread
+        thread_body being the message of the thread
+
+    comment : 
+    
+        * 16 \n thread_uuid \n user_uuid \n timestamp \n comment_body \n\n ... \n\0
+
+        thread_uuid being the uuid of the teams where it was create
+        user_uuid being the uuid of the user who create it
+        timestamp the time the thread was create
+        comment_body being the message of the reply
+
+
+When the client receive the info of a :
+    team : 
+
+        * 17 \n uuid_team \n team_name \n description \n\0
+
+        uuid_team being the uuid of the team
+        team_name being the uuid of the team
+        desciption being the description of the team
+    
+    channel :
+        
+        * 18 \n uuid_channel \n channel_name \n description \n\0
+
+        uuid_channel being the uuid of the channel
+        channel_name being the uuid of the channel
+        desciption being the description of the channel
+
+    thread : 
+    
+        * 19 \n thread_uuid \n user_uuid \n timestamp \n thread_title \n thread_body \n\0
+
+        thread_uuid being the uuid of the thread
+        user_uuid being the uuid of the user who create it
+        timestamp the time the thread was create
+        thread_title the title of the thread
+        thread_body being the message of the thread
+
+
+When a error is produced because of :
+
+	an unknown uuid of :
+
+		teams : 
+
+            * 41 \n uuid_teams \n\0
+
+            uuid_teams being the wrong uuid send by the client before
+        
+		channel : 
+            
+            * 42 \n uuid_channel \n\0
+
+            uuid_channel being the wrong uuid send by the client before
+
+		thread : 
+            
+            * 43 \n uuid_thread \n\0
+
+            uuid_thread being the wrong uuid send by the client before
+
+		user : 
+            
+            * 44 \n uuid_user \n\0
+
+            uuid_user being the wrong uuid send by the client before
+
+	unauthorized action is tried by the client: 
+        
+        * 45 \n\0
+    
+	the client tempting to create something wich already exist : 
+    
+        * 46 \n\0

@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 206
+## File description:
+## 206
+##
+
+import sys
+from math import *
+
+def harmonicmean(n, new, h):
+    l = n / (n+1)
+    h = h ** (-1)
+    u = 1/((n+1)*new)
+    l = l * h
+    l = l + u
+    l = l ** -1
+    return l
+
+def meanroot(n, sd, a, new):
+    l = n/(n+1)
+    c = pow(sd,2)
+    c = c + pow(a,2)
+    b = pow(new,2)
+    b = b / (n+1)
+    l = l * c + b
+    l = sqrt(l)
+    return l
+
+def deviation(n, a, new, r):
+    l = pow(r,2)
+    l = l - pow(a,2)
+    l = sqrt(l)
+    return l
+
+def mean(n, a, new):
+    l = n/(n+1)
+    l = l * a
+    l = l + (new/(n+1))
+    return l
+
+if __name__ ==  "__main__":
+    arg = len(sys.argv) - 1
+    if (arg != 4):
+        print ("USAGE\n    ./206neutrinos n a h sd\n\nDESCRIPTION\n    n       number of values\n    a       arithmetic mean\n    h       harmonic mean\n    sd      standard deviation")
+        if (arg != 1):
+            exit (84)
+        if (sys.argv[1] == "-h"):
+            exit (0)
+        else:
+            exit (84)
+    for x in range(1, 5):
+        for y in range(0, len(sys.argv[x])):
+            if ((sys.argv[x][y] < '0' or sys.argv[x][y] > '9') and (x == 1 or sys.argv[x][y] != '.')):
+                print ("%s invalide argument"%sys.argv[x])
+                exit (84)
+    n = int(sys.argv[1])
+    a = float(sys.argv[2])
+    h =	float(sys.argv[3])
+    if (h < 1):
+        print ("%.1f invalide argument"%h)
+        exit (84)
+    sd = float(sys.argv[4])
+    r = 0.0
+    valid = 1
+    new = input("Enter next value: ")
+    while (new != "END"):
+        valid = 1
+        if (new != "END"):
+            for x in range(0, len(new)):
+                if ((new[x] < '0' or new[x] > '9') and new[x] != '.'):
+                    print ("%s invalide argument"%new)
+                    valid = 0
+                    break
+            if (valid == 1):
+                new = float(new)
+                if (new > 0):
+                    ab = mean(n,a,new)
+                    rb = meanroot(n, sd, a, new)
+                    hb = harmonicmean(n, new, h)
+                    a = ab
+                    r = rb
+                    h = hb
+                    sd = deviation(n, a, new, r)
+                    n = n+1
+                    print("    Number of values:   %d\n    Standard deviation: %.2f\n    Arithmetic mean:    %.2f\n    Root mean square:   %.2f\n    Harmonic mean:      %.2f"%(n, sd, a, r, h))
+                else:
+                    print ("%.1f invalide argument"%new)
+                    exit (84)
+        new = input("\nEnter next value: ")

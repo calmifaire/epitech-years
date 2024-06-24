@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 309
+## File description:
+## 309
+##
+
+import sys
+from math import *
+import os
+
+def compute(n, o, p):
+    a = int(factorial(n) / (factorial(o) * factorial(n - o)))
+    b = (pow(p, o) if o != 0 else 1)
+    c = (pow((1 - p), (n - o)) if (n - o) != 0 else 1)
+    return a * b * c
+
+if __name__ == "__main__":
+    argc = len(sys.argv) - 1
+    if (argc == 1):
+        if (sys.argv[1] == "-h"):
+            print ("USAGE\n\t./309pollution n file x y\n\nDESCRIPTION\n\tn\tnumber of points on the grid axis\n\tfile\tcsv file containing the data points x;y;p\n\tx\tabscissa of the point whose pollution level we want to know\n\ty\torder of the point whose pollution level we want to know")
+            exit (0)
+    elif (argc != 4):
+        print ("USAGE\n\t./309pollution n file x y\n\nDESCRIPTION\n\tn\tnumber of points on the grid axis\n\tfile\tcsv file containing the data points x;y;p\n\tx\tabscissa of the point whose pollution level we want to know\n\ty\torder of the point whose pollution level we want to know")
+        exit (84)
+    if (os.path.exists(sys.argv[2]) == 0):
+        exit (84)
+    f = open(sys.argv[2], "r")
+    file = f.read()
+    f.close
+    if (len(file) == 0):
+        exit (84)
+    strTab = list(filter(None, file.split("\n")))
+    arr = []
+    for i in range(len(strTab)):
+        if (strTab[i] != ''):
+            arr.append(strTab[i].split(";"))
+    for i in range(len(arr)):
+        if (len(arr[i]) < 3):
+            exit (84)
+        for y in range (0,  len(arr[i])):
+            for k in range (0, len(arr[i][y])):
+                if ((arr[i][y][k] < '0' or arr[i][y][k] > '9') and arr[i][y][k] != '.'):
+                    exit (84)
+    for i in range(1, len(sys.argv)):
+        for y in range (0,  len(sys.argv[i])):
+            if ((sys.argv[i][y] < '0' or sys.argv[i][y] > '9') and sys.argv[i][y] != '.' and i != 2):
+                exit (84)
+    n = int(sys.argv[1])
+    if (n <= 1):
+        exit (84)
+    x = float(sys.argv[3])
+    y = float(sys.argv[4])
+    x /= n - 1
+    y /= n - 1
+    points = [list(map(int, m.split(";"))) for m in strTab]
+    grid = []
+    for _ in range(0, n):
+        grid.append([0] * n)
+    for point in points:
+        if point[0] < 0 or point[0] > n - 1 or point[1] < 0 or point[1] > n - 1:
+            exit(84)
+        grid[point[1]][point[0]] = point[2]
+
+    pollution = 0
+    for i in range(n):
+        for j in range(n):
+            v = compute(n - 1, i, y)
+            v *= compute(n - 1, j, x)
+            v *= grid[i][j]
+            pollution += v
+    print(f"{pollution:.2f}")

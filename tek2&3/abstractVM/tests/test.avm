@@ -1,0 +1,10 @@
+; ---------------
+; test.avm
+; ---------------
+
+push	int32	(3)
+	dump	;
+	;		
+			exit
+dsadasdas
+;;

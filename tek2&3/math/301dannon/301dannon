@@ -1,0 +1,105 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 301
+## File description:
+## 301
+##
+
+import sys
+from math import *
+import os.path
+
+def bubble_sort(bubble):
+        comp = 0
+        for y in range (1, len(bubble)):
+                for i in range (0, len(bubble) - y):
+                        comp = comp + 1
+                        if (bubble[i] > bubble[i+1]):
+                                tmp = bubble[i]
+                                bubble[i] = bubble[i+1]
+                                bubble[i+1] = tmp
+        print("Bubble sort: %d comparisons"%(comp))
+
+def insertion_sort(insert):
+        comp = 0
+        for i in range(1, len(insert)):
+                j = i-1
+                comp = comp + 1
+                if (insert[j] > insert[i]):
+                        ok = 0
+                        for x in range (0, i + 1):
+                                if (ok == 1):
+                                        tmp2 = insert[x]
+                                        insert[x] = tmp1
+                                        tmp1 = tmp2
+                                if (ok == 0):
+                                        comp = comp + 1
+                                        if (insert[i] < insert[x]):
+                                                tmp1 = insert[x]
+                                                insert[x] = insert[i]
+                                                ok = 1
+        print(comp)
+
+def selection_sort(select):
+        comp = 0
+        for i in range(len(select)):
+                min = i
+                for j in range(i+1, len(select)):
+                        comp = comp + 1
+                        if select[min] > select[j]:
+                                min = j
+                tmp = select[i]
+                select[i] = select[min]
+                select[min] = tmp
+        print ("Selection sort: %d comparisons"%(comp))
+
+def error_gestion_too_strong(x):
+         for i in range (0, len(x)):
+                check = 0
+                for y in range(0, len(x[i])):
+                        if (x[i][y] >= '0' and x[i][y] <= '9'):
+                                check = check + 1
+                        if (x[i][y] == '-' and y + 1 <= len(x[i]) - 1):
+                                if (x[i][y+1] >= '0' and x[i][y+1] <= '9'):
+                                        check = check + 1
+                        if (x[i][y] == '.' and y + 1 <= len(x[i]) - 1 and y - 1 >= 0):
+                                if (x[i][y+1] >= '0' and x[i][y+1] <= '9' and x[i][y-1] >= '0' and x[i][y-1] <= '9'):
+                                        check = check + 1
+                if (check != len(x[i])):
+                        exit (84)
+
+if __name__ == "__main__":
+        arg = len(sys.argv) - 1
+        if (arg != 1):
+                print ("USAGE\n    ./301dannon file\nDESCRIPTION\n    file    file that contains the numbers to be sorted, separated by spaces")
+                exit (84)
+        if (sys.argv[1] == "-h"):
+                print ("USAGE\n    ./301dannon file\nDESCRIPTION\n    file    file that contains the numbers to be sorted, separated by spaces")
+                exit (0)
+        if (os.path.exists(sys.argv[1]) == 0):
+                exit (84)
+        f = open(sys.argv[1], "r")
+        a = f.read()
+        if (len(a) == 0):
+                exit (84)
+        ok = 0
+        for i in range (0, len(a)):
+                if (a[i] < '0' or a[i] > '9'):
+                        if (a[i] != ' ' and a[i] != "-" and a[i] != "\n" and a[i] != "\0" and a[i] != "."):
+                                exit (84)
+                if (a[i] >= '0' and a[i] <= '9'):
+                        ok = ok + 1
+        if (ok == 0):
+                exit(84)
+        x = a.split(' ')
+        for i in range (0, len(x)):
+                x[i] = float(x[i])
+        print("%d elements"%(len(x)))
+        select = x.copy()
+        selection_sort(select)
+        insert = x.copy()
+        insertion_sort(insert)
+        bubble = x.copy()
+        bubble_sort(bubble)
+        exit(0)

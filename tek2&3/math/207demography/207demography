@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 207
+## File description:
+## 207
+##
+
+import sys
+from math import *
+import csv
+
+def write_country(name):
+    print("Country: ", end="")
+    for i in range (0, len(name)):
+        if (i != len(name) - 1):
+            print ("%s, "%(name[i]), end ="")
+        else:
+            print ("%s"%(name[i]))
+    return()
+
+def parse_csv():
+    file = open('207demography_data.csv')
+    sys.argv.sort()
+    csvreader = csv.reader(file, delimiter=';', quotechar='|')
+    header = next(csvreader)
+    years = []
+    for i in range (2, len(header)):
+        years.append(int(header[i]))
+    rows = []
+    for row in csvreader:
+        rows.append(row)
+    total = [0] * 58
+    name = []
+    for y in range(1, arg+1):
+        find = 0
+        for x in range(0, len(rows)):
+            if (rows[x][1] == sys.argv[y]):
+                find = 1
+                name.append(rows[x][0])
+                for l in range (2, len(rows[x])):
+                    total[l - 2] += int(rows[x][l])
+        if (find == 0):
+            print ("%s unknow country"% sys.argv[y])
+            file.close()
+            exit (84)
+    file.close()
+    return (years, name, total)
+
+def get_sums(total, years):
+    sums = [0,0,0,0,0]
+    for i in range(0, len(years)):
+        sums[0] = sums[0] + years[i]
+        sums[1] = sums[1] + years[i] * years[i]
+        sums[2] = sums[2] + (years[i] * total[i])
+    for i in range (0, len(total)):
+        sums[3] = sums[3] + total[i]
+        sums[4] = sums[4] + (total[i] * total[i])
+    return sums
+
+def calculate_fit1(sums, years, total):
+    print ("Fit 1")
+    func = 0
+    a = (sums[3] * sums[1] - sums[0] * sums[2])/(len(years) * sums[1] - (sums[0] * sums[0]))
+    b = (len(years) * sums[2] - sums[0] * sums[3]) / (len(years) * sums[1] - sums[0] * sums[0])
+    after = (a/1000000) + (2050 * (b / 1000000))
+    if a >= 0:
+        print("    Y = %.2f X + %.2f"%(b/1000000, a/1000000))
+    else:
+        print("    Y = %.2f X - %.2f"%(b/1000000, a/1000000 * -1))
+    for i in range(0, len(years)):
+        func = func + pow(((years[i] * b + a) - total[i]), 2) / len(years)
+    rms = sqrt(func) / 1000000
+    print("    Root-mean-square deviation: %.2f"% (rms))
+    print("    Population in 2050: %.2f"% (after))
+    return (rms)
+
+def calculate_fit2(sums, years, total):
+    print("Fit 2")
+    func = 0
+    a = (sums[0] * sums[4] - sums[3] * sums[2])/(len(years) * sums[4] - (sums[3] * sums[3]))
+    b = (len(years) * sums[2] - sums[3] * sums[0]) / (len(years) * sums[4] - sums[3] * sums[3])
+    after = ((2050 - a) / b) / 1000000
+    if a >= 0:
+        print("    X = %.2f Y + %.2f"%(b*1000000, a))
+    else:
+        print("    X = %.2f Y - %.2f"%(b*1000000, a * -1))
+    for i in range(0, len(years)):
+        func = func + pow( ((years[i] - a) / b) - (total[i]), 2) / len(years)
+    rms = sqrt(func) / 1000000
+    print("    Root-mean-square deviation: %.2f"% (rms))
+    print("    Population in 2050: %.2f"% (after))
+    return (rms)
+
+if __name__ ==  "__main__":
+    arg = len(sys.argv) - 1
+    if (arg < 1):
+        print ("USAGE\n    ./207demography code [...]\n\nDESCRIPTION\n    code    country code")
+        if (arg != 1):
+            exit (84)
+        if (sys.argv[1] == "-h"):
+            exit (0)
+        else:
+            exit (84)
+    for x in range(1, arg + 1):
+        for y in range(0, len(sys.argv[x])):
+            if (sys.argv[x][y] < 'A' or sys.argv[x][y] > 'Z'):
+                print ("%s invalide argument"%sys.argv[x])
+                exit (84)
+    years, name, total = parse_csv()
+    write_country(name)
+    sums = get_sums(total, years)
+    rms1 = calculate_fit1(sums,years, total)
+    rms2 = calculate_fit2(sums,years, total)
+    print("Correlation: %.4f"%(rms1/rms2))
+    exit (0)

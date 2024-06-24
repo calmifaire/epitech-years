@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## 209
+## File description:
+## 209
+##
+
+import sys
+from math import *
+
+if __name__ ==  "__main__":
+    arg = len(sys.argv) - 1
+    if (arg != 3):
+        print ("USAGE\n    ./209poll pSize sSize p\n\nDESCRIPTION\n    pSize    size of the population\n    sSize    size of the sample (supposed to be representative)\n    p        percentage of voting intentions for a specific candidate")
+        if (arg != 1):
+            exit (84)
+        if (sys.argv[1] == "-h"):
+            exit (0)
+        else:
+            exit (84)
+    for x in range(1, arg + 1):
+        for y in range(0, len(sys.argv[x])):
+            if ((sys.argv[x][y] < '0' or sys.argv[x][y] > '9') and (x != 3 or sys.argv[x][y] != '.')):
+                print ("%s invalide argument"%sys.argv[x])
+                exit (84)
+    pop = float(sys.argv[1])
+    samp = float(sys.argv[2])
+    prob = float(sys.argv[3])
+    if (pop < 1 or samp < 1):
+        print ("population and sample can't be 0")
+        exit (84)
+    if (samp > pop):
+        print ("sample can't be higher than population")
+        exit (84)
+    if (prob > 100):
+        print ("proba can't be above 100%")
+        exit (84)
+    print ("Population size:         %d"%pop)
+    print ("Sample size:             %d"%samp)
+    print ("Voting intentions:       %.2f%%"%prob)
+    prob = prob / 100
+    v = prob /samp
+    v = v * (1 - prob)
+    t = (pop - samp)/(pop - 1)
+    v = v * t
+    print ("Variance:                %.6f"%v)
+    meanv = sqrt(v)
+    inter = 1.96 * meanv
+    up = (prob + inter) * 100
+    down = (prob - inter) * 100
+    print ("95%% confidence interval: [%.2f%%; %.2f%%]"%(down, up))
+    inter = 2.58 * meanv
+    up = (prob + inter) * 100
+    down = (prob - inter) * 100
+    print ("99%% confidence interval: [%.2f%%; %.2f%%]"%(down, up))
+    exit (0)

@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2022
+## B-MAT-500-STG-5-1-302separation-kevin.zilliox
+## File description:
+## 302separation
+##
+
+import sys
+from copy import *
+from math import *
+import os.path
+
+def print_name(name):
+    for i in range (0, len(name)):
+        print (name[i])
+    print ("")
+
+def print_matrix(matrix):
+    for i in range (0, len(matrix)):
+        for y in range (0, len(matrix[i])):
+            print (matrix[i][y], end = "")
+            if (y + 1 != len(matrix[i])):
+                print (" ", end = "")
+        print("")
+
+def create_matrix(name, a):
+    matrix = [list(range(1 + len(name) * i, 1 + len(name) * (i + 1))) for i in range(len(name))]
+    for i in range (0, len(name)):
+            for y in range (0, len(name)):
+                matrix[i][y] = 0
+    for m in range (0, len(a)):
+        for i in range (0, len(matrix)):
+            for y in range (0, len(matrix[i])):
+                if (a[m][0] == name[i] and a[m][1] == name[y]):
+                    matrix[i][y] = 1
+                    matrix[y][i] = 1
+                    break
+            if (a[m][0] == name[i] and a[m][1] == name[y]):
+                break
+    return (matrix)
+
+def use_pi(name, link):
+    ok = 0
+    sep = -2
+    for i in range (2, 4):
+        for y in range (0, len(name)):
+            if (name[y] == sys.argv[i]):
+                ok = ok + 1
+                break
+    if (ok != 2):
+        sep = -1
+    if (sys.argv[2] == sys.argv[3]):
+        sep = 0
+    elif (sep == -2):
+        matrixbase = create_matrix(name, link)
+        matrixmul = create_matrix(name, link)
+        matrixresult = create_matrix(name, link)
+        matrixtmp = create_matrix(name, link)
+        n = len(name)
+        sep = -1
+        for m in range (2, n):
+            matrixmul = multiplie_matrix(matrixbase, matrixmul, matrixtmp)
+            for i in range (0, len(name)):
+                for y in range (0, len(name)):
+                    if (i != y and matrixmul[i][y] != 0 and matrixresult[i][y] == 0):
+                        matrixresult[i][y] = m
+                    if (matrixresult[name.index(sys.argv[2])][name.index(sys.argv[3])]):
+                        sep = matrixresult[name.index(sys.argv[2])][name.index(sys.argv[3])]
+                        break
+                if (sep != -1):
+                    break
+        if (n == 2):
+            sep = matrixresult[name.index(sys.argv[2])][name.index(sys.argv[3])]
+    print("Degree of separation between %s and %s: %d"%(sys.argv[2], sys.argv[3], sep))
+
+def matrix_result(matrixbase, matrixmul, i, y):
+    result = 0
+    for n in range (0, len(matrixmul[i])):
+        result = result + matrixmul[i][n] * matrixbase[n][y]
+    return (result)
+
+def multiplie_matrix(matrixbase, matrixmul, matrixtmp):
+    for i in range (0, len(matrixmul)):
+        for y in range (0, len(matrixmul[i])):
+            matrixtmp[i][y] = matrixmul[i][y]
+    for i in range (0, len(matrixmul)):
+        for y in range (0, len(matrixmul[i])):
+            matrixmul[i][y] = matrix_result(matrixbase, matrixtmp, i, y)
+    return(matrixmul)
+
+def use_n(name, link, n):
+    print_name(name)
+    matrixbase = create_matrix(name, link)
+    print_matrix(matrixbase)
+    print("")
+    matrixmul = create_matrix(name, link)
+    matrixresult = create_matrix(name, link)
+    matrixtmp = create_matrix(name, link)
+    for m in range (2, n + 1):
+        matrixmul = multiplie_matrix(matrixbase, matrixmul, matrixtmp)
+        for i in range (0, len(name)):
+            for y in range (0, len(name)):
+                if (i != y and matrixmul[i][y] != 0 and matrixresult[i][y] == 0):
+                    matrixresult[i][y] = m
+    print_matrix(matrixresult)
+
+if __name__ == "__main__":
+    arg = len(sys.argv) - 1
+    if (arg == 1):
+        print ("USAGE\n    ./302separation file\nDESCRIPTION\n    file    file that contains the list of Facebook connections\n    n       maximum length of the paths\n    pi      name of someone in the file")
+        if (sys.argv[1] == "-h"):
+            exit (0)
+        else:
+            exit (84)
+    if (arg < 2 or arg > 3):
+        print ("USAGE\n    ./302separation file\nDESCRIPTION\n    file    file that contains the list of Facebook connections\n    n       maximum length of the paths\n    pi      name of someone in the file")
+        exit (84)
+    if (arg == 2):
+        for i in range (0, len(sys.argv[2])):
+            if (sys.argv[2][i] < '0' or sys.argv[2][i] > '9'):
+                print("number argu 2 wrong")
+                exit (84)
+    if (os.path.exists(sys.argv[1]) == 0):
+        exit (84)
+    f = open(sys.argv[1], "r")
+    link = f.read()
+    if (len(link) == 0):
+        exit (84)
+    link = link.split('\n')
+    for i in range(0, len(link)):
+        link[i] = link[i].split("is friends with")
+    name = []
+    for i in range(0, len(link)):
+        for y in range(0, len(link[i])):
+            if (link[i][y] != ''):
+                link[i][y] = link[i][y].strip()
+                name.append(link[i][y])
+    name = list(dict.fromkeys(name))
+    if (len(name) == 0):
+        exit (84)
+    name.sort()
+    if (arg == 3):
+        use_pi(name, link)
+    elif (arg == 2):
+        n = int(sys.argv[2])
+        use_n(name, link, n)
+    exit (0)

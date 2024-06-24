@@ -1,0 +1,13 @@
+push float(566.0)
+push int16(2805)
+sub
+push int16(500)
+div
+store int8(0)
+load int8(0)
+load int8(0)
+mul
+load int8(0)
+mul
+dump
+exit

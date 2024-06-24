@@ -1,0 +1,4 @@
+    - antoine.veber@epitech.eu
+    - nykyta.kudrya@epitech.eu
+    - maxime.hoffbeck@epitech.eu
+    - alexandre.frantz@epitech.eu
